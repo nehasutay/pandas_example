@@ -75,14 +75,73 @@ print(d1)
 d1=d1.drop('a')
 print(d1)
 
+# Reindexing
+data={'one':pd.Series([1,2,3],index=['a','b','c']),
+     'two':pd.Series([1,2,3],index=['a','b','c']),
+     'three':pd.Series(np.random.randint(5,15,3),index=['a','b','c'])}
+d1=pd.DataFrame(data)
+print(d1)
+d1_r=d1.reindex(index=[0,2,5],columns=['A','C','B'])
+print(d1_r)
 
+d1_r=d1.reindex(index=['a',2,5],columns=['one','C','B'])
+print(d1_r)
 
+d1_r=d1.reindex(index=['a',2,5],columns=['one','C','B'])
+print(d1_r)
 
+df1=pd.DataFrame(np.random.randn(6,3),columns=['col1','col2','col3'])
+df2=pd.DataFrame(np.random.randn(2,3),columns=['col1','col2','col3'])
+print(df1)
+print(df2)
+# Padding NaN
+print (df2.reindex_like(df1))
+# DataFrame with forward fill
+print (df2.reindex_like(df1,method='ffill', limit=1))
+# DataFrame with back fill
+print (df2.reindex_like(df1,method='bfill'))
 
+# Renaming
+df1=pd.DataFrame(np.random.randn(6,3),columns=['col1','col2','col3'])
+df2=pd.DataFrame(np.random.randn(2,3),columns=['col1','col2','col3'])
+print(df1)
+print(df1.rename(columns={'col1':'c1','col2':'c2'},index={0:'apple',1:'banana',2:'durian'}))
 
+# Iteration (Iterating DataFrame)
+df1=pd.DataFrame(np.random.randn(6,3),columns=['col1','col2','col3'])
+df2=pd.DataFrame(np.random.randn(2,3),columns=['col1','col2','col3'])
+print(df1)
+for x in df1:
+	print(x)
 
+for key,value in df1.iteritems():
+	print(key)
 
+for key,value in df1.iteritems():
+	print(key,value)
 
+for key,value in df1.iterrows():
+	print(key,value)
+
+for key in df1.itertuples():
+	print(key)
+
+# Sorting
+df1=pd.DataFrame(np.random.randn(6,3),columns=['col1','col2','col3'])
+df2=pd.DataFrame(np.random.randn(2,3),columns=['col1','col2','col3'])
+usdf=pd.DataFrame(np.random.randn(10,3),index=[1,4,6,2,3,5,9,8,0,7],columns=['col1','col2','col3'])
+print(usdf)
+sdf=usdf.sort_index()
+print(sdf)
+
+sdf=usdf.sort_index(ascending=True)
+print(sdf)
+
+sdf=usdf.sort_values(by='col1')
+print(sdf)
+
+sdf=usdf.sort_values(by='col1',kind='mergesort')
+print(sdf)
 
 
 
